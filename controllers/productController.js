@@ -1,15 +1,15 @@
-const { Product } = require("../models");
+const { product } = require("../models");
 
 const createProduct = async (req, res) => {
   const { name, price, stock } = req.body;
   try {
-    const newProduct = await Product.create({
+    const newProduct = await product.create({
       name,
       price,
       stock,
     });
     res.status(200).json({
-      status: success,
+      status: "success",
       data: {
         newProduct,
       },
@@ -19,17 +19,18 @@ const createProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll();
+    console.log(product);
+    const products = await product.findAll();
     res.status(200).json({
-      status: success,
+      status: "success",
       data: {
         products,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: failed,
-      message: err.meassage,
+      status: "failed",
+      message: err.message,
     });
   }
 };
@@ -37,21 +38,21 @@ const getAllProducts = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findOne({
+    const prod = await product.findOne({
       where: {
         id: id,
       },
     });
     res.status(200).json({
-      status: success,
+      status: "success",
       data: {
-        product,
+        prod,
       },
     });
   } catch (err) {
     res.status(400).json({
-      status: failed,
-      message: err.meassage,
+      status: "failed",
+      message: err.message,
     });
   }
 };
@@ -60,7 +61,7 @@ const updateProductById = async (req, res) => {
   const { name, price, stock } = req.body;
   try {
     const id = req.params.id;
-    const product = await Product.update(
+    await product.update(
       {
         name,
         price,
@@ -73,13 +74,13 @@ const updateProductById = async (req, res) => {
       }
     );
     res.status(200).json({
-      status: success,
+      status: "success",
       message: "data updated successfully",
     });
   } catch (err) {
     res.status(400).json({
-      status: failed,
-      message: err.meassage,
+      status: "failed",
+      message: err.message,
     });
   }
 };
@@ -88,19 +89,19 @@ const deleteProductById = async (req, res) => {
   const { name, price, stock } = req.body;
   try {
     const id = req.params.id;
-    const product = await Product.destroy({
+    await product.destroy({
       where: {
         id: id,
       },
     });
     res.status(200).json({
-      status: success,
+      status: "success",
       message: "data deleted successfully",
     });
   } catch (err) {
     res.status(400).json({
-      status: failed,
-      message: err.meassage,
+      status: "failed",
+      message: err.message,
     });
   }
 };
